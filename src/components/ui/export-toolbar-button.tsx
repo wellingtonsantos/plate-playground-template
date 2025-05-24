@@ -92,7 +92,10 @@ import { HeadingElementStatic } from '@/components/ui/heading-element-static';
 import { HighlightLeafStatic } from '@/components/ui/highlight-leaf-static';
 import { HrElementStatic } from '@/components/ui/hr-element-static';
 import { ImageElementStatic } from '@/components/ui/image-element-static';
-import { FireLiComponent, FireMarker } from '@/components/ui/indent-fire-marker';
+import {
+  FireLiComponent,
+  FireMarker,
+} from '@/components/ui/indent-fire-marker';
 import {
   TodoLiStatic,
   TodoMarkerStatic,
