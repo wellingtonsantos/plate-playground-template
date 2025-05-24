@@ -50,15 +50,15 @@ import {
 } from 'lucide-react';
 
 import {
+  insertBlock,
+  insertInlineElement,
+} from '@/components/editor/transforms';
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  insertBlock,
-  insertInlineElement,
-} from '@/components/editor/transforms';
 
 import { ToolbarButton, ToolbarMenuGroup } from './toolbar';
 
@@ -81,42 +81,42 @@ const groups: Group[] = [
     items: [
       {
         icon: <PilcrowIcon />,
-        label: 'Paragraph',
+        label: 'Texto normal',
         value: ParagraphPlugin.key,
       },
       {
         icon: <Heading1Icon />,
-        label: 'Heading 1',
+        label: 'Título 1',
         value: HEADING_KEYS.h1,
       },
       {
         icon: <Heading2Icon />,
-        label: 'Heading 2',
+        label: 'Título 2',
         value: HEADING_KEYS.h2,
       },
       {
         icon: <Heading3Icon />,
-        label: 'Heading 3',
+        label: 'Título 3',
         value: HEADING_KEYS.h3,
       },
       {
         icon: <TableIcon />,
-        label: 'Table',
+        label: 'Tabela',
         value: TablePlugin.key,
       },
       {
         icon: <FileCodeIcon />,
-        label: 'Code',
+        label: 'Código',
         value: CodeBlockPlugin.key,
       },
       {
         icon: <QuoteIcon />,
-        label: 'Quote',
+        label: 'Citar',
         value: BlockquotePlugin.key,
       },
       {
         icon: <MinusIcon />,
-        label: 'Divider',
+        label: 'Divisor',
         value: HorizontalRulePlugin.key,
       },
     ].map((item) => ({
@@ -131,22 +131,22 @@ const groups: Group[] = [
     items: [
       {
         icon: <ListIcon />,
-        label: 'Bulleted list',
+        label: 'Lista com marcadores',
         value: ListStyleType.Disc,
       },
       {
         icon: <ListOrderedIcon />,
-        label: 'Numbered list',
+        label: 'Lista numerada',
         value: ListStyleType.Decimal,
       },
       {
         icon: <SquareIcon />,
-        label: 'To-do list',
+        label: 'Lista de tarefas',
         value: INDENT_LIST_KEYS.todo,
       },
       {
         icon: <ChevronRightIcon />,
-        label: 'Toggle list',
+        label: 'Lista alternada',
         value: TogglePlugin.key,
       },
     ].map((item) => ({
@@ -161,12 +161,12 @@ const groups: Group[] = [
     items: [
       {
         icon: <ImageIcon />,
-        label: 'Image',
+        label: 'Imagem',
         value: ImagePlugin.key,
       },
       {
         icon: <FilmIcon />,
-        label: 'Embed',
+        label: 'Incorporar',
         value: MediaEmbedPlugin.key,
       },
       {
@@ -186,18 +186,18 @@ const groups: Group[] = [
     items: [
       {
         icon: <TableOfContentsIcon />,
-        label: 'Table of contents',
+        label: 'Índice',
         value: TocPlugin.key,
       },
       {
         icon: <Columns3Icon />,
-        label: '3 columns',
+        label: '3 colunas',
         value: 'action_three_columns',
       },
       {
         focusEditor: false,
         icon: <RadicalIcon />,
-        label: 'Equation',
+        label: 'Equação',
         value: EquationPlugin.key,
       },
     ].map((item) => ({
@@ -218,13 +218,13 @@ const groups: Group[] = [
       {
         focusEditor: true,
         icon: <CalendarIcon />,
-        label: 'Date',
+        label: 'Data',
         value: DatePlugin.key,
       },
       {
         focusEditor: false,
         icon: <RadicalIcon />,
-        label: 'Inline Equation',
+        label: 'Equação Inline',
         value: InlineEquationPlugin.key,
       },
     ].map((item) => ({
@@ -243,7 +243,7 @@ export function InsertDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip="Insert" isDropdown>
+        <ToolbarButton pressed={open} tooltip="Inserir" isDropdown>
           <PlusIcon />
         </ToolbarButton>
       </DropdownMenuTrigger>

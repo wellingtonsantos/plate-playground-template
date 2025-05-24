@@ -1,3 +1,40 @@
+# Uso do Plate JS como iframe se comunicando via postMessage
+
+### setContent
+- Objetivo: Define o conteúdo do editor.
+- Exemplo de mensagem:
+```ts
+{
+  type: 'setContent',
+  data: { content: [...] } // conteúdo compatível com o editor Plate
+}
+```
+
+### editor-mode
+- Objetivo: Alterna entre os modos editing, viewing ou suggestion.
+- Exemplo de mensagem:
+```ts
+{
+  type: 'editor-mode',
+  data: 'editing' // ou 'viewing' | 'suggestion'
+}
+```
+
+### mentionables
+- Objetivo: Define a lista de menções disponíveis (para @ mention).
+- Exemplo de mensagem:
+```ts
+{
+  type: 'mentionables',
+  data: [
+    { key: '1', text: 'João' },
+    { key: '2', text: 'Maria' }
+  ]
+}
+```
+
+---
+
 # Playground Template
 
 A Next.js 15 template with [Plate](https://platejs.org/) AI, plugins and components.

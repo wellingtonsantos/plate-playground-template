@@ -20,6 +20,7 @@ import {
 import { Command as CommandPrimitive } from 'cmdk';
 import { Loader2Icon } from 'lucide-react';
 
+import { useChat } from '@/components/editor/use-chat';
 import { Command, CommandList } from '@/components/ui/command';
 import {
   Popover,
@@ -27,7 +28,6 @@ import {
   PopoverContent,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { useChat } from '@/components/editor/use-chat';
 
 import { AIChatEditor } from './ai-chat-editor';
 import { AIMenuItems } from './ai-menu-items';
@@ -113,7 +113,7 @@ export function AIMenu() {
     api.aiChat.stop();
 
     // remove when you implement the route /api/ai/command
-    chat._abortFakeStream();
+    // chat._abortFakeStream();
   });
 
   const isLoading = status === 'streaming' || status === 'submitted';
@@ -151,7 +151,7 @@ export function AIMenu() {
           {isLoading ? (
             <div className="flex grow items-center gap-2 p-2 text-sm text-muted-foreground select-none">
               <Loader2Icon className="size-4 animate-spin" />
-              {messages.length > 1 ? 'Editing...' : 'Thinking...'}
+              {messages.length > 1 ? 'Editando...' : 'Pensando...'}
             </div>
           ) : (
             <CommandPrimitive.Input
@@ -172,7 +172,7 @@ export function AIMenu() {
                 }
               }}
               onValueChange={setInput}
-              placeholder="Ask AI anything..."
+              placeholder="Pergunte qualquer coisa à IA..."
               data-plate-focus
               autoFocus
             />

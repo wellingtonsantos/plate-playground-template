@@ -208,9 +208,9 @@ export function SettingsDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-xl">Settings</DialogTitle>
+          <DialogTitle className="text-xl">Configurações</DialogTitle>
           <DialogDescription>
-            Configure your API keys and preferences.
+            Configure suas chaves e preferências de API.
           </DialogDescription>
         </DialogHeader>
 
@@ -221,7 +221,7 @@ export function SettingsDialog() {
               <div className="size-8 rounded-full bg-purple-100 p-2 dark:bg-purple-900">
                 <Wand2Icon className="size-4 text-purple-600 dark:text-purple-400" />
               </div>
-              <h4 className="font-semibold">AI</h4>
+              <h4 className="font-semibold">IA</h4>
             </div>
 
             <div className="space-y-4">
@@ -232,7 +232,7 @@ export function SettingsDialog() {
                   className="absolute start-1 top-0 z-10 block -translate-y-1/2 bg-background px-2 text-xs font-medium text-foreground group-has-disabled:opacity-50"
                   htmlFor="select-model"
                 >
-                  Model
+                  Modelo
                 </label>
                 <Popover open={openModel} onOpenChange={setOpenModel}>
                   <PopoverTrigger id="select-model" asChild>
@@ -249,8 +249,8 @@ export function SettingsDialog() {
                   </PopoverTrigger>
                   <PopoverContent className="w-full p-0">
                     <Command>
-                      <CommandInput placeholder="Search model..." />
-                      <CommandEmpty>No model found.</CommandEmpty>
+                      <CommandInput placeholder="Busque um modelo..." />
+                      <CommandEmpty>Nenhum modelo encontrado.</CommandEmpty>
                       <CommandList>
                         <CommandGroup>
                           {models.map((m) => (
@@ -297,12 +297,12 @@ export function SettingsDialog() {
           </div> */}
 
           <Button size="lg" className="w-full" type="submit">
-            Save changes
+            Salvar
           </Button>
         </form>
 
         <p className="text-sm text-muted-foreground">
-          Not stored anywhere. Used only for current session requests.
+          Não armazenado em lugar nenhum. Usado apenas para solicitações de sessão atuais.
         </p>
       </DialogContent>
     </Dialog>

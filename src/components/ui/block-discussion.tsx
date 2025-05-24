@@ -30,6 +30,12 @@ import {
   PencilLineIcon,
 } from 'lucide-react';
 
+import { commentsPlugin } from '@/components/editor/plugins/comments-plugin';
+import {
+  type TDiscussion,
+  discussionPlugin,
+} from '@/components/editor/plugins/discussion-plugin';
+import { suggestionPlugin } from '@/components/editor/plugins/suggestion-plugin';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -37,12 +43,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { commentsPlugin } from '@/components/editor/plugins/comments-plugin';
-import {
-  type TDiscussion,
-  discussionPlugin,
-} from '@/components/editor/plugins/discussion-plugin';
-import { suggestionPlugin } from '@/components/editor/plugins/suggestion-plugin';
 
 import {
   BlockSuggestionCard,

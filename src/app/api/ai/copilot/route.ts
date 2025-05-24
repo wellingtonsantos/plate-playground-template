@@ -1,7 +1,8 @@
 import type { NextRequest } from 'next/server';
 
 import { createOpenAI } from '@ai-sdk/openai';
-import { generateText } from 'ai';
+// import { generateText } from 'ai';
+import { streamText } from 'ai';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -24,13 +25,13 @@ export async function POST(req: NextRequest) {
   const openai = createOpenAI({ apiKey });
 
   try {
-    const result = await generateText({
+    const result = await streamText({
       abortSignal: req.signal,
-      maxTokens: 50,
+      maxTokens: 100,
       model: openai(model),
       prompt: prompt,
       system,
-      temperature: 0.7,
+      temperature: 0.5,
     });
 
     return NextResponse.json(result);

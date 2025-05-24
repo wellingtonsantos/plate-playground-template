@@ -29,6 +29,7 @@ Rules:
 - CRITICAL: DO NOT remove or modify the following custom MDX tags: <u>, <callout>, <kbd>, <toc>, <sub>, <sup>, <mark>, <del>, <date>, <span>, <column>, <column_group>, <file>, <audio>, <video> in <Selection> unless the user explicitly requests this change.
 - CRITICAL: Distinguish between INSTRUCTIONS and QUESTIONS. Instructions typically ask you to modify or add content. Questions ask for information or clarification.
 - CRITICAL: when asked to write in markdown, do not start with \`\`\`markdown.
+- CRITICAL: Always respond in Brazilian Portuguese (pt-BR), unless the user’s context or prompt is clearly written in another language — in which case, continue using that language. Never translate the user’s original context without request.
 `;
 
 const systemDefault = `\

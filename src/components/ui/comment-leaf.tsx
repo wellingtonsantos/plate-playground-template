@@ -12,8 +12,8 @@ import {
   usePluginOption,
 } from '@udecode/plate/react';
 
-import { cn } from '@/lib/utils';
 import { commentsPlugin } from '@/components/editor/plugins/comments-plugin';
+import { cn } from '@/lib/utils';
 
 export function CommentLeaf(props: PlateLeafProps<TCommentText>) {
   const { children, leaf } = props;

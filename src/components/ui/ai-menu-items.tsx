@@ -13,7 +13,6 @@ import {
 import {
   Album,
   BadgeHelp,
-  BookOpenCheck,
   Check,
   CornerUpLeft,
   FeatherIcon,
@@ -37,7 +36,7 @@ export type EditorChatState =
 export const aiChatItems = {
   accept: {
     icon: <Check />,
-    label: 'Accept',
+    label: 'Aceitar',
     value: 'accept',
     onSelect: ({ editor }) => {
       editor.getTransforms(AIChatPlugin).aiChat.accept();
@@ -46,7 +45,7 @@ export const aiChatItems = {
   },
   continueWrite: {
     icon: <PenLine />,
-    label: 'Continue writing',
+    label: 'Continuar escrevendo',
     value: 'continueWrite',
     onSelect: ({ editor }) => {
       const ancestorNode = editor.api.block({ highest: true });
@@ -68,7 +67,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   discard: {
     icon: <X />,
-    label: 'Discard',
+    label: 'Descartar',
     shortcut: 'Escape',
     value: 'discard',
     onSelect: ({ editor }) => {
@@ -78,7 +77,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   emojify: {
     icon: <SmileIcon />,
-    label: 'Emojify',
+    label: 'Incluir emojis',
     value: 'emojify',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -88,7 +87,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   explain: {
     icon: <BadgeHelp />,
-    label: 'Explain',
+    label: 'Explicar',
     value: 'explain',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -101,7 +100,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   fixSpelling: {
     icon: <Check />,
-    label: 'Fix spelling & grammar',
+    label: 'Corrigir ortografia e gramática',
     value: 'fixSpelling',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -109,29 +108,29 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
       });
     },
   },
-  generateMarkdownSample: {
-    icon: <BookOpenCheck />,
-    label: 'Generate Markdown sample',
-    value: 'generateMarkdownSample',
-    onSelect: ({ editor }) => {
-      void editor.getApi(AIChatPlugin).aiChat.submit({
-        prompt: 'Generate a markdown sample',
-      });
-    },
-  },
-  generateMdxSample: {
-    icon: <BookOpenCheck />,
-    label: 'Generate MDX sample',
-    value: 'generateMdxSample',
-    onSelect: ({ editor }) => {
-      void editor.getApi(AIChatPlugin).aiChat.submit({
-        prompt: 'Generate a mdx sample',
-      });
-    },
-  },
+  // generateMarkdownSample: {
+  //   icon: <BookOpenCheck />,
+  //   label: 'Generate Markdown sample',
+  //   value: 'generateMarkdownSample',
+  //   onSelect: ({ editor }) => {
+  //     void editor.getApi(AIChatPlugin).aiChat.submit({
+  //       prompt: 'Generate a markdown sample',
+  //     });
+  //   },
+  // },
+  // generateMdxSample: {
+  //   icon: <BookOpenCheck />,
+  //   label: 'Generate MDX sample',
+  //   value: 'generateMdxSample',
+  //   onSelect: ({ editor }) => {
+  //     void editor.getApi(AIChatPlugin).aiChat.submit({
+  //       prompt: 'Generate a mdx sample',
+  //     });
+  //   },
+  // },
   improveWriting: {
     icon: <Wand />,
-    label: 'Improve writing',
+    label: 'Melhorar a escrita',
     value: 'improveWriting',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -141,7 +140,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   insertBelow: {
     icon: <ListEnd />,
-    label: 'Insert below',
+    label: 'Insira abaixo',
     value: 'insertBelow',
     onSelect: ({ aiEditor, editor }) => {
       void editor.getTransforms(AIChatPlugin).aiChat.insertBelow(aiEditor);
@@ -149,7 +148,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   makeLonger: {
     icon: <ListPlus />,
-    label: 'Make longer',
+    label: 'Faça mais',
     value: 'makeLonger',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -159,7 +158,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   makeShorter: {
     icon: <ListMinus />,
-    label: 'Make shorter',
+    label: 'Faça mais curto',
     value: 'makeShorter',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -169,7 +168,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   replace: {
     icon: <Check />,
-    label: 'Replace selection',
+    label: 'Substituir seleção',
     value: 'replace',
     onSelect: ({ aiEditor, editor }) => {
       void editor.getTransforms(AIChatPlugin).aiChat.replaceSelection(aiEditor);
@@ -177,7 +176,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   simplifyLanguage: {
     icon: <FeatherIcon />,
-    label: 'Simplify language',
+    label: 'Simplifique a linguagem',
     value: 'simplifyLanguage',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -187,7 +186,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   summarize: {
     icon: <Album />,
-    label: 'Add a summary',
+    label: 'Adicione um resumo',
     value: 'summarize',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.submit({
@@ -201,7 +200,7 @@ Start writing a new paragraph AFTER <Document> ONLY ONE SENTENCE`
   },
   tryAgain: {
     icon: <CornerUpLeft />,
-    label: 'Try again',
+    label: 'Tente novamente',
     value: 'tryAgain',
     onSelect: ({ editor }) => {
       void editor.getApi(AIChatPlugin).aiChat.reload();
@@ -237,8 +236,8 @@ const menuStateItems: Record<
   cursorCommand: [
     {
       items: [
-        aiChatItems.generateMdxSample,
-        aiChatItems.generateMarkdownSample,
+        // aiChatItems.generateMdxSample,
+        // aiChatItems.generateMarkdownSample,
         aiChatItems.continueWrite,
         aiChatItems.summarize,
         aiChatItems.explain,

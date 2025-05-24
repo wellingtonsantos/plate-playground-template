@@ -26,7 +26,7 @@ export function CommentToolbarButton() {
     <ToolbarButton
       onClick={onCommentToolbarButton}
       data-plate-prevent-overlay
-      tooltip="Comment"
+      tooltip="Comentar"
     >
       <MessageSquareTextIcon />
     </ToolbarButton>

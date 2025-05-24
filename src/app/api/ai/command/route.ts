@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
       }),
       maxTokens: 2048,
       messages: convertToCoreMessages(messages),
-      model: openai('gpt-4o'),
+      model: openai('gpt-4o-mini'),
       system: system,
     });
 

@@ -28,7 +28,7 @@ export const AILoadingBar = () => {
       )}
     >
       <span className="h-4 w-4 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
-      <span>{status === 'submitted' ? 'Thinking...' : 'Writing...'}</span>
+      <span>{status === 'submitted' ? 'Pensando...' : 'Escrevendo...'}</span>
       <Button
         size="sm"
         variant="ghost"
@@ -36,9 +36,9 @@ export const AILoadingBar = () => {
         onClick={() => api.aiChat.stop()}
       >
         <Pause className="h-4 w-4" />
-        Stop
+        Parar
         <kbd className="ml-1 rounded bg-border px-1 font-mono text-[10px] text-muted-foreground shadow-sm">
-          Esc
+          Sair
         </kbd>
       </Button>
     </div>

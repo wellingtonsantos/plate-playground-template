@@ -49,14 +49,14 @@ import {
 } from '@udecode/plate/react';
 import { CheckIcon, XIcon } from 'lucide-react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import {
   type TDiscussion,
   discussionPlugin,
 } from '@/components/editor/plugins/discussion-plugin';
 import { suggestionPlugin } from '@/components/editor/plugins/suggestion-plugin';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 import { type TComment, Comment, formatCommentDate } from './comment';
 import { CommentCreateForm } from './comment-create-form';
@@ -68,35 +68,35 @@ export interface ResolvedSuggestion extends TResolvedSuggestion {
 export const BLOCK_SUGGESTION = '__block__';
 
 export const TYPE_TEXT_MAP: Record<string, (node?: TElement) => string> = {
-  [AudioPlugin.key]: () => 'Audio',
-  [BlockquotePlugin.key]: () => 'Blockquote',
-  [CalloutPlugin.key]: () => 'Callout',
-  [CodeBlockPlugin.key]: () => 'Code Block',
-  [ColumnPlugin.key]: () => 'Column',
-  [EquationPlugin.key]: () => 'Equation',
-  [FilePlugin.key]: () => 'File',
-  [HEADING_KEYS.h1]: () => `Heading 1`,
-  [HEADING_KEYS.h2]: () => `Heading 2`,
-  [HEADING_KEYS.h3]: () => `Heading 3`,
-  [HEADING_KEYS.h4]: () => `Heading 4`,
-  [HEADING_KEYS.h5]: () => `Heading 5`,
-  [HEADING_KEYS.h6]: () => `Heading 6`,
-  [HorizontalRulePlugin.key]: () => 'Horizontal Rule',
-  [ImagePlugin.key]: () => 'Image',
-  [MediaEmbedPlugin.key]: () => 'Media',
+  [AudioPlugin.key]: () => 'Áudio',
+  [BlockquotePlugin.key]: () => 'Citação em bloco',
+  [CalloutPlugin.key]: () => 'Faixa',
+  [CodeBlockPlugin.key]: () => 'Bloco de código',
+  [ColumnPlugin.key]: () => 'Coluna',
+  [EquationPlugin.key]: () => 'Equação',
+  [FilePlugin.key]: () => 'Arquivo',
+  [HEADING_KEYS.h1]: () => `Título 1`,
+  [HEADING_KEYS.h2]: () => `Título 2`,
+  [HEADING_KEYS.h3]: () => `Título 3`,
+  [HEADING_KEYS.h4]: () => `Título 4`,
+  [HEADING_KEYS.h5]: () => `Título 5`,
+  [HEADING_KEYS.h6]: () => `Título 6`,
+  [HorizontalRulePlugin.key]: () => 'Regra horizontal',
+  [ImagePlugin.key]: () => 'Imagem',
+  [MediaEmbedPlugin.key]: () => 'Mídia',
   [ParagraphPlugin.key]: (node) => {
     if (node?.[IndentListPlugin.key] === INDENT_LIST_KEYS.todo)
-      return 'Todo List';
+      return 'Lista de tarefas';
     if (node?.[IndentListPlugin.key] === ListStyleType.Decimal)
-      return 'Ordered List';
+      return 'Lista ordenada';
     if (node?.[IndentListPlugin.key] === ListStyleType.Disc) return 'List';
 
-    return 'Paragraph';
+    return 'Parágrafo';
   },
-  [TablePlugin.key]: () => 'Table',
-  [TocPlugin.key]: () => 'Table of Contents',
-  [TogglePlugin.key]: () => 'Toggle',
-  [VideoPlugin.key]: () => 'Video',
+  [TablePlugin.key]: () => 'Tabela',
+  [TocPlugin.key]: () => 'Índice',
+  [TogglePlugin.key]: () => 'Alternar',
+  [VideoPlugin.key]: () => 'Vídeo',
 };
 
 export const BlockSuggestionCard = ({
@@ -165,7 +165,7 @@ export const BlockSuggestionCard = ({
                 {suggestionText2Array(suggestion.text!).map((text, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <span className="text-sm text-muted-foreground">
-                      Delete:
+                      Excluir:
                     </span>
 
                     <span key={index} className="text-sm">
@@ -182,7 +182,7 @@ export const BlockSuggestionCard = ({
                   (text, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <span className="text-sm text-muted-foreground">
-                        Add:
+                        Adicionar:
                       </span>
 
                       <span key={index} className="text-sm">
@@ -203,7 +203,7 @@ export const BlockSuggestionCard = ({
                         key={index}
                         className="flex items-start gap-2 text-brand/80"
                       >
-                        <span className="text-sm">with:</span>
+                        <span className="text-sm">com:</span>
                         <span className="text-sm">{text || 'line breaks'}</span>
                       </div>
                     </React.Fragment>
@@ -214,7 +214,7 @@ export const BlockSuggestionCard = ({
                   <React.Fragment key={index}>
                     <div key={index} className="flex items-start gap-2">
                       <span className="text-sm text-muted-foreground">
-                        {index === 0 ? 'Replace:' : 'Delete:'}
+                        {index === 0 ? 'Substituir:' : 'Excluir:'}
                       </span>
                       <span className="text-sm">{text || 'line breaks'}</span>
                     </div>

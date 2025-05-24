@@ -6,6 +6,7 @@ export const useDebounce = <T>(value: T, delay = 500) => {
   React.useEffect(() => {
     const handler: NodeJS.Timeout = setTimeout(() => {
       setDebouncedValue(value);
+      console.log(`qweqweqwe`, value)
     }, delay);
 
     // Cancel the timeout if value changes (also on delay change or unmount)

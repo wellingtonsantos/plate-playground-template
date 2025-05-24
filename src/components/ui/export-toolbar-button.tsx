@@ -72,13 +72,6 @@ import { useEditorRef } from '@udecode/plate/react';
 import { all, createLowlight } from 'lowlight';
 import { ArrowDownToLineIcon } from 'lucide-react';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { BlockquoteElementStatic } from '@/components/ui/blockquote-element-static';
 import { CodeBlockElementStatic } from '@/components/ui/code-block-element-static';
 import { CodeLeafStatic } from '@/components/ui/code-leaf-static';
@@ -88,6 +81,13 @@ import { ColumnElementStatic } from '@/components/ui/column-element-static';
 import { ColumnGroupElementStatic } from '@/components/ui/column-group-element-static';
 import { CommentLeafStatic } from '@/components/ui/comment-leaf-static';
 import { DateElementStatic } from '@/components/ui/date-element-static';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { HeadingElementStatic } from '@/components/ui/heading-element-static';
 import { HighlightLeafStatic } from '@/components/ui/highlight-leaf-static';
 import { HrElementStatic } from '@/components/ui/hr-element-static';
@@ -379,7 +379,7 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip="Export" isDropdown>
+        <ToolbarButton pressed={open} tooltip="Exportar" isDropdown>
           <ArrowDownToLineIcon className="size-4" />
         </ToolbarButton>
       </DropdownMenuTrigger>
@@ -387,16 +387,16 @@ export function ExportToolbarButton(props: DropdownMenuProps) {
       <DropdownMenuContent align="start">
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={exportToHtml}>
-            Export as HTML
+            Exportar como HTML
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToPdf}>
-            Export as PDF
+            Exportar como PDF
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToImage}>
-            Export as Image
+            Exportar como Image
           </DropdownMenuItem>
           <DropdownMenuItem onSelect={exportToMarkdown}>
-            Export as Markdown
+            Exportar como Markdown
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -34,6 +34,7 @@ import {
 import { useReadOnly, useSelected } from '@udecode/plate/react';
 import { GripVertical } from 'lucide-react';
 
+import { STRUCTURAL_TYPES } from '@/components/editor/transforms';
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -41,7 +42,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
-import { STRUCTURAL_TYPES } from '@/components/editor/transforms';
 
 const UNDRAGGABLE_KEYS = [
   ColumnItemPlugin.key,
@@ -236,7 +236,7 @@ const DragHandle = React.memo(function DragHandle() {
           <GripVertical className="text-muted-foreground" />
         </div>
       </TooltipTrigger>
-      <TooltipContent>Drag to move</TooltipContent>
+      <TooltipContent>Arraste para mover</TooltipContent>
     </Tooltip>
   );
 });

@@ -13,6 +13,7 @@ import {
   AlignRightIcon,
 } from 'lucide-react';
 
+import { STRUCTURAL_TYPES } from '@/components/editor/transforms';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +21,6 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { STRUCTURAL_TYPES } from '@/components/editor/transforms';
 
 import { ToolbarButton } from './toolbar';
 
@@ -58,7 +58,7 @@ export function AlignDropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
       <DropdownMenuTrigger asChild>
-        <ToolbarButton pressed={open} tooltip="Align" isDropdown>
+        <ToolbarButton pressed={open} tooltip="Justificar" isDropdown>
           <IconValue />
         </ToolbarButton>
       </DropdownMenuTrigger>

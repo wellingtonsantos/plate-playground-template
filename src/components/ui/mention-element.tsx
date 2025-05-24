@@ -13,8 +13,8 @@ import {
   useSelected,
 } from '@udecode/plate/react';
 
-import { cn } from '@/lib/utils';
 import { useMounted } from '@/hooks/use-mounted';
+import { cn } from '@/lib/utils';
 
 export function MentionElement(
   props: PlateElementProps<TMentionElement> & {
