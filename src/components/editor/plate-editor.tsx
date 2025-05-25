@@ -9,12 +9,12 @@ import { Plate } from '@udecode/plate/react';
 import { debounce } from 'lodash';
 
 import { useEditorBridge } from '@/components/editor/editor-context';
-// import { SettingsDialog } from '@/components/editor/settings';
 import { useCreateEditor } from '@/components/editor/use-create-editor';
 import { Editor, EditorContainer } from '@/components/ui/editor';
 
 export function PlateEditor() {
-  const editor = useCreateEditor();
+  const [initialValue, setInitialValue] = React.useState<Value>([]);
+  const editor = useCreateEditor({ value: initialValue }, [initialValue]);
   const { sendMessage } = useEditorBridge();
 
   const debouncedSend = React.useMemo(
@@ -28,6 +28,25 @@ export function PlateEditor() {
   const handleValueChange = ({ value }: { value: Value }) => {
     debouncedSend(value);
   };
+
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const { data, type } = event.data;
+
+      if (type === 'setContent') {
+        try {
+          const parsed = JSON.parse(data);
+          setInitialValue(parsed); // atualiza o state que será usado como value no próximo render
+          console.log('Conteúdo recebido:', parsed);
+        } catch (err) {
+          console.error('Erro ao parsear conteúdo:', err);
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
     <DndProvider backend={HTML5Backend}>
