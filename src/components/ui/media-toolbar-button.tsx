@@ -1,10 +1,8 @@
 'use client';
 
 import * as React from 'react';
-
-import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-
 import { isUrl } from '@udecode/plate';
+import { useEditorRef } from '@udecode/plate/react';
 import {
   AudioPlugin,
   FilePlugin,
@@ -12,16 +10,9 @@ import {
   PlaceholderPlugin,
   VideoPlugin,
 } from '@udecode/plate-media/react';
-import { useEditorRef } from '@udecode/plate/react';
-import {
-  AudioLinesIcon,
-  FileUpIcon,
-  FilmIcon,
-  ImageIcon,
-  LinkIcon,
-} from 'lucide-react';
-import { toast } from 'sonner';
+import { AudioLinesIcon, FileUpIcon, FilmIcon, ImageIcon, LinkIcon } from 'lucide-react';
 import { useFilePicker } from 'use-file-picker';
+import { toast } from 'sonner';
 
 import {
   AlertDialog,
@@ -41,12 +32,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-
 import {
   ToolbarSplitButton,
   ToolbarSplitButtonPrimary,
   ToolbarSplitButtonSecondary,
 } from './toolbar';
+
+import { useEditorBridge } from '@/components/editor/editor-context';
 
 const MEDIA_CONFIG: Record<
   string,
@@ -86,27 +78,56 @@ const MEDIA_CONFIG: Record<
 export function MediaToolbarButton({
   nodeType,
   ...props
-}: DropdownMenuProps & { nodeType: string }) {
-  const currentConfig = MEDIA_CONFIG[nodeType];
-
+}: React.ComponentProps<typeof DropdownMenu> & { nodeType: string }) {
+  const config = MEDIA_CONFIG[nodeType];
   const editor = useEditorRef();
+  const { sendMessage, onMessage } = useEditorBridge();
+
   const [open, setOpen] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
 
+  const pendingUploads = React.useRef<Record<string, string>>({});
+
+  // Listen for uploaded file URL
+  React.useEffect(() => {
+    onMessage('fileUploaded', ({ id, url }: { id: string; url: string }) => {
+      const type = pendingUploads.current[id];
+      if (!type) return;
+
+      editor.tf.insertNodes({
+        type,
+        url,
+        name: type === FilePlugin.key ? url.split('/').pop() : undefined,
+        children: [{ text: '' }],
+      });
+
+      delete pendingUploads.current[id];
+    });
+  }, [editor, onMessage]);
+
   const { openFilePicker } = useFilePicker({
-    accept: currentConfig.accept,
+    accept: config.accept,
     multiple: true,
-    onFilesSelected: ({ plainFiles: updatedFiles }) => {
-      editor.getTransforms(PlaceholderPlugin).insert.media(updatedFiles);
+    onFilesSelected: ({ plainFiles }) => {
+      plainFiles.forEach((file) => {
+        const id = `file-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        pendingUploads.current[id] = nodeType;
+
+        sendMessage({
+          type: 'fileToUpload',
+          data: { id, file },
+        });
+      });
+
+      // Insere um placeholder visual se desejar
+      editor.getTransforms(PlaceholderPlugin).insert.media(plainFiles);
     },
   });
 
   return (
     <>
       <ToolbarSplitButton
-        onClick={() => {
-          openFilePicker();
-        }}
+        onClick={() => openFilePicker()}
         onKeyDown={(e) => {
           if (e.key === 'ArrowDown') {
             e.preventDefault();
@@ -115,48 +136,32 @@ export function MediaToolbarButton({
         }}
         pressed={open}
       >
-        <ToolbarSplitButtonPrimary>
-          {currentConfig.icon}
-        </ToolbarSplitButtonPrimary>
+        <ToolbarSplitButtonPrimary>{config.icon}</ToolbarSplitButtonPrimary>
 
-        <DropdownMenu
-          open={open}
-          onOpenChange={setOpen}
-          modal={false}
-          {...props}
-        >
+        <DropdownMenu open={open} onOpenChange={setOpen} modal={false} {...props}>
           <DropdownMenuTrigger asChild>
             <ToolbarSplitButtonSecondary />
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent
-            onClick={(e) => e.stopPropagation()}
-            align="start"
-            alignOffset={-32}
-          >
+          <DropdownMenuContent align="start" alignOffset={-32} onClick={(e) => e.stopPropagation()}>
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => openFilePicker()}>
-                {currentConfig.icon}
-                Upload from computer
+                {config.icon}
+                Carregar do computador
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setDialogOpen(true)}>
                 <LinkIcon />
-                Insert via URL
+                Inserir via URL
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </ToolbarSplitButton>
 
-      <AlertDialog
-        open={dialogOpen}
-        onOpenChange={(value) => {
-          setDialogOpen(value);
-        }}
-      >
+      <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <AlertDialogContent className="gap-6">
           <MediaUrlDialogContent
-            currentConfig={currentConfig}
+            currentConfig={config}
             nodeType={nodeType}
             setOpen={setDialogOpen}
           />
@@ -178,17 +183,18 @@ function MediaUrlDialogContent({
   const editor = useEditorRef();
   const [url, setUrl] = React.useState('');
 
-  const embedMedia = React.useCallback(() => {
-    if (!isUrl(url)) return toast.error('Invalid URL');
+  const embedMedia = () => {
+    if (!isUrl(url)) return toast.error('URL inválida');
 
-    setOpen(false);
     editor.tf.insertNodes({
-      children: [{ text: '' }],
-      name: nodeType === FilePlugin.key ? url.split('/').pop() : undefined,
       type: nodeType,
       url,
+      name: nodeType === FilePlugin.key ? url.split('/').pop() : undefined,
+      children: [{ text: '' }],
     });
-  }, [url, editor, nodeType, setOpen]);
+
+    setOpen(false);
+  };
 
   return (
     <>
@@ -198,19 +204,16 @@ function MediaUrlDialogContent({
 
       <AlertDialogDescription className="group relative w-full">
         <label
-          className="absolute top-1/2 block -translate-y-1/2 cursor-text px-1 text-sm text-muted-foreground/70 transition-all group-focus-within:pointer-events-none group-focus-within:top-0 group-focus-within:cursor-default group-focus-within:text-xs group-focus-within:font-medium group-focus-within:text-foreground has-[+input:not(:placeholder-shown)]:pointer-events-none has-[+input:not(:placeholder-shown)]:top-0 has-[+input:not(:placeholder-shown)]:cursor-default has-[+input:not(:placeholder-shown)]:text-xs has-[+input:not(:placeholder-shown)]:font-medium has-[+input:not(:placeholder-shown)]:text-foreground"
           htmlFor="url"
+          className="absolute top-1/2 -translate-y-1/2 cursor-text px-1 text-sm text-muted-foreground/70 transition-all group-focus-within:top-0 group-focus-within:text-xs group-focus-within:font-medium group-focus-within:text-foreground"
         >
           <span className="inline-flex bg-background px-2">URL</span>
         </label>
         <Input
           id="url"
-          className="w-full"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') embedMedia();
-          }}
+          onKeyDown={(e) => e.key === 'Enter' && embedMedia()}
           placeholder=""
           type="url"
           autoFocus
@@ -218,14 +221,12 @@ function MediaUrlDialogContent({
       </AlertDialogDescription>
 
       <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction
-          onClick={(e) => {
-            e.preventDefault();
-            embedMedia();
-          }}
-        >
-          Accept
+        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+        <AlertDialogAction onClick={(e) => {
+          e.preventDefault();
+          embedMedia();
+        }}>
+          Inserir
         </AlertDialogAction>
       </AlertDialogFooter>
     </>
