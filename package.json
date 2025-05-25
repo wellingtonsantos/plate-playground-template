@@ -11,7 +11,7 @@
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "vercel-build": "pnpm install && pnpm run build"
+    "vercel-build": "npm install && npm run build"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.3.22",
