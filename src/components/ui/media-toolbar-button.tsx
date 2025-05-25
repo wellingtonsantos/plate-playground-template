@@ -90,7 +90,7 @@ export function MediaToolbarButton({
 
   // Listen for uploaded file URL
   React.useEffect(() => {
-    onMessage('fileUploaded', ({ id, url }: { id: string; url: string }) => {
+    onMessage('file', ({ id, url }: { id: string; url: string }) => {
       const type = pendingUploads.current[id];
       if (!type) return;
 
@@ -114,7 +114,7 @@ export function MediaToolbarButton({
         pendingUploads.current[id] = nodeType;
 
         sendMessage({
-          type: 'fileToUpload',
+          type: 'file',
           data: { id, file },
         });
       });
