@@ -1,3 +1,5 @@
+import path from 'path';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
@@ -8,6 +10,11 @@ const nextConfig = {
         source: '/',
       },
     ];
+  },
+
+  webpack(config) {
+    config.resolve.alias['@'] = path.resolve('./src');
+    return config;
   },
 };
 
