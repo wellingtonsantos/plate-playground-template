@@ -10,8 +10,7 @@
     "lint:fix": "next lint --fix && prettier --write . --log-level warn",
     "preview": "cross-env NODE_ENV=production next build && next start",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
-    "vercel-build": "npm install && npm run build"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/openai": "^1.3.22",
