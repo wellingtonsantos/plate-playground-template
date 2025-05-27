@@ -14,8 +14,9 @@ import { Editor, EditorContainer } from '@/components/ui/editor';
 
 export function PlateEditor() {
   const [initialValue, setInitialValue] = React.useState<Value>([]);
+  const [readOnly, setReadOnly] = React.useState(false); // estado de leitura
   const editor = useCreateEditor({ value: initialValue }, [initialValue]);
-  const { sendMessage } = useEditorBridge();
+  const { sendMessage, onMessage } = useEditorBridge();
 
   const debouncedSend = React.useMemo(
     () =>
@@ -26,31 +27,36 @@ export function PlateEditor() {
   );
 
   const handleValueChange = ({ value }: { value: Value }) => {
-    debouncedSend(value);
+    if (!readOnly) {
+      debouncedSend(value);
+    }
   };
 
   React.useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      const { data, type } = event.data;
+    // Lida com mensagens específicas do contexto
+    onMessage('readonly', (value) => {
+      console.log('[PlateEditor] Modo readOnly alterado para:', value);
+      setReadOnly(!!value);
+    });
 
-      if (type === 'setContent') {
-        try {
-          const parsed = JSON.parse(data);
-          setInitialValue(parsed); // atualiza o state que será usado como value no próximo render
-          console.log('Conteúdo recebido:', parsed);
-        } catch (err) {
-          console.error('Erro ao parsear conteúdo:', err);
-        }
+    onMessage('setContent', (raw) => {
+      try {
+        const parsed = JSON.parse(raw);
+        setInitialValue(parsed);
+        console.log('[PlateEditor] Conteúdo recebido:', parsed);
+      } catch (err) {
+        console.error('[PlateEditor] Erro ao parsear conteúdo:', err);
       }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
+    });
+  }, [onMessage]);
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Plate onValueChange={handleValueChange} editor={editor}>
+      <Plate
+        onValueChange={handleValueChange}
+        editor={editor}
+        readOnly={readOnly} // <-- aqui aplicamos o controle
+      >
         <EditorContainer>
           <Editor variant="demo" />
         </EditorContainer>

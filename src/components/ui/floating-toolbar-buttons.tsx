@@ -10,6 +10,7 @@ import {
   UnderlinePlugin,
 } from '@udecode/plate-basic-marks/react';
 import { useEditorReadOnly } from '@udecode/plate/react';
+
 import {
   BoldIcon,
   Code2Icon,
@@ -20,12 +21,12 @@ import {
 } from 'lucide-react';
 
 import { AIToolbarButton } from './ai-toolbar-button';
-import { CommentToolbarButton } from './comment-toolbar-button';
-import { InlineEquationToolbarButton } from './inline-equation-toolbar-button';
+// import { CommentToolbarButton } from './comment-toolbar-button';
+// import { InlineEquationToolbarButton } from './inline-equation-toolbar-button';
 import { LinkToolbarButton } from './link-toolbar-button';
 import { MarkToolbarButton } from './mark-toolbar-button';
-import { MoreDropdownMenu } from './more-dropdown-menu';
-import { SuggestionToolbarButton } from './suggestion-toolbar-button';
+// import { MoreDropdownMenu } from './more-dropdown-menu';
+// import { SuggestionToolbarButton } from './suggestion-toolbar-button';
 import { ToolbarGroup } from './toolbar';
 import { TurnIntoDropdownMenu } from './turn-into-dropdown-menu';
 
@@ -75,19 +76,20 @@ export function FloatingToolbarButtons() {
               <Code2Icon />
             </MarkToolbarButton>
 
+            {/* Comentado temporariamente:
             <InlineEquationToolbarButton />
+            */}
 
             <LinkToolbarButton />
           </ToolbarGroup>
         </>
       )}
 
-      <ToolbarGroup>
+      {/* <ToolbarGroup>
         <CommentToolbarButton />
         <SuggestionToolbarButton />
-
         {!readOnly && <MoreDropdownMenu />}
-      </ToolbarGroup>
+      </ToolbarGroup> */}
     </>
   );
 }
